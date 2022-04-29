@@ -28,16 +28,13 @@ methods: {
   },
 
   rollFilms() {
+    this.films = []
+    this.prev = false
     for (let i=0; i<10 ; i++) {
       let selecFilm = csv[Math.floor(Math.random()*1000)]
       this.films.push({'hidden':true,'off':false,'href':selecFilm.href,'src':'https://a.ltrbxd.com/resized/'+selecFilm.src})
     }
   },
-
-  closePopup($event) {
-    console.target
-  }
-
   
   },
   beforeMount(){
@@ -53,7 +50,7 @@ methods: {
       <img class="h-16" src="./assets/logo.svg">
       <h1 class="font-bold text-4xl pb-[7px]">Roulette</h1>
     </div>
-    <div class="float-right font-semig h-full f">
+    <div class="float-right font-semig h-full flex">
       <button class="but bg-blue-500 my-auto" @click="rollFilms()">RANDOM</button>
     </div>
     
@@ -62,11 +59,10 @@ methods: {
     <div class="films mx-auto grid grid-cols-5 gap-6">
         <div v-for="(film,i) in films"
           class="image hover:border-solid overflow-hidden relative"
-          :class="{ 'grayscale':film.off }"
+          :class="{ 'grayscale':film.off, 'brightness-0':film.hidden }"
           @click="showFilm(i)"
         >
-          <div class="card back" :class="{ 'invisible':!film.hidden }"></div>
-          <img class="w-full h-full visible" :src="film.src">
+          <img class="w-full h-full" :src="film.src">
         </div>
     </div>
   </div>
