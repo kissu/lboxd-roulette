@@ -5,6 +5,9 @@
 html,body,div {
     height:100%;
     width:100%;
+}
+
+body {
     background: #242532;
     color: #fff;
     font-family: 'Rubik', serif;
@@ -12,16 +15,42 @@ html,body,div {
 
 header {
     width: 100%;
-    height: 9%;
+    height: 5rem;
     background: #121320;
+}
+
+.header-items {
+    max-width: 600px;
+    padding: 1rem;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-items: center;
 }
 
 .card-list {
     max-width: 500px;
-    justify-content: space-around;
-    gap: 7%;
-    padding: 7%;
+    justify-content: space-evenly;
+    height: fit-content;
+    gap: 1.5em;
+    padding: 1.5em
 }
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    width: 8rem;
+    height: 3rem;
+}
+
+.icon {
+    width: 40px;
+    height: 40px;
+    padding: 0.5rem;
+}
+
 
 #__nuxt > div, #__nuxt > header {
     display:none
