@@ -17,24 +17,47 @@ useHead({
 
   <header class="header">
     <div class="header-items">
-      <div class="flex flex-1 h-fit"><img src="./assets/info.svg" class="icon"></div>
+      <div class="flex flex-1 h-fit"><img src="./assets/info.svg" class="icon" @click="open('info-box')"></div>
       <h1 class="font-semibold text-3xl" >Wordle</h1>
-      <div class="flex flex-1 h-fit justify-end"><img src="./assets/info.svg" class="icon"></div>
+      <div class="flex flex-1 h-fit justify-end"><img src="./assets/settings.svg" class="icon" @click="open('settings-box')"></div>
     </div>
   </header>
 
-  <div class="game w-full h-full flex flex-col items-center justify-center">
+  <div class="game w-full flex flex-col items-center justify-center">
     <div class="card-list grid grid-cols-3 w-full overflow-hidden">
       <Card v-for="(film,i) in films" :film="film" :i="i" :key="i" @flip="grayFilm"></Card>
     </div>
     <div class="button my-6 " :class="{ 'bg-emerald-500':last!=10,'bg-slate-500':last==10 }"  @click="confirm">CONFIRM</div>
   </div>
   
+  <div ref="info-box" class="overlay">
+    <div class="boxx p-5">
+      <div class="flex items-center mb-4">
+        <h2 class="flex-1 font-semibold">HOW TO PLAY</h2>
+        <img src="./assets/x.svg" class="w-6 h-6" @click="close('info-box')">
+      </div>
+      <p class="font-light text-sm mb-2">Inspired by <a href="https://www.nytimes.com/games/wordle/index.html">Wordle</a> and <a href="https://letterboxd.com/tobiasandersen2/list/random-movie-roulette/">this list</a>.</p>
+      <p class="font-light text-sm mb-2">Every day there's a new random set of films from the 2000 most popular on Letterboxd.</p>
+      <p class="font-light text-sm mb-2">After you select a film, you can choose to select another, but you can't go back. If you want to stop, just click confirm</p>
+    </div>
+  </div>
+
+  <div ref="settings-box" class="overlay">
+    <div class="boxx p-5">
+      <div class="flex items-center mb-4">
+        <h2 class="flex-1 font-semibold">SETTINGS</h2>
+        <img src="./assets/x.svg" class="w-6 h-6" @click="close('settings-box')">
+      </div>
+      <p class="font-light text-sm mb-2">Settings and new sets of films coming in the future!</p>
+    </div>
+  </div>
+
 </body>
 </template>
 
 <script>
 import csv from './assets/filmList.csv'
+import './assets/seedrandom.js'
 
 export default { data() { return {
   films: [],
@@ -70,11 +93,20 @@ export default { data() { return {
           film['gray'] = true
         }
       }
-    }
+    },
+
+    open(ele) { this.$refs[ele].style.display = 'flex' },
+    close(ele) { this.$refs[ele].style.display = 'none' },
   },
 
   beforeMount(){
+    // Math.seedrandom(Date().slice(0,15));
+    Math.seedrandom('Sat Apr 30 2022')
     this.getMovies()
+  },
+
+  mounted(){
+    this.open('info-box')
   }
 }
 </script>

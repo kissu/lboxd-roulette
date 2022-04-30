@@ -4,7 +4,7 @@ to-do list:
   [-] html element
 [-] grayscale
 [-] fix layout
-[ ] info page
-[ ] film page at end
+[-] info page
+[-] film page at end
 [ ] auto confirm when flipping last card
 [ ] random seed
