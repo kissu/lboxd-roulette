@@ -1,103 +1,59 @@
 <script setup>
+import Card from './card.vue'
 useHead({
-  title: 'Letterboxd Roulette',
+  title: 'Wordle',
   link: {rel:'icon', href:'https://letterboxd.com/favicon.ico'},
 })
 </script>
 
+<template>
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600;700&display=swap" rel="stylesheet"> 
+</head>
+
+<body class="m-0 h-full font-graph flex flex-col items-center">
+
+  <header class="header flex flex-row items-center justify-center">
+    <h1 class="font-semibold text-4xl">Wordle</h1>
+  </header>
+
+  <div class="game w-full h-full flex flex-col items-center justify-center">
+    <div class="card-list grid grid-cols-3 w-full h-fit">
+      <Card v-for="film in films" :film="film"></Card>
+    </div>
+  </div>
+  
+
+</body>
+</template>
+
 <script>
 import csv from './assets/filmList.csv'
-import './assets/css/card.css'
 
 export default { data() { return {
   films: [],
-  prev: false
+  last: 0,
     };
   },
 
-methods: {
-  showFilm(i) {
-    if (this.films[i].hidden) {
-      this.films[i].hidden = false;
+  methods: {
+    getMovies() {
+      const nums = new Set();
+      while (nums.size !== 9) {
+        nums.add(Math.floor(Math.random() * 1400) + 1);
+      }
 
-      if (this.films[this.prev] != undefined) { this.films[this.prev].off = true; }
-      this.prev = i
-    } else {
-      window.open('https://letterboxd.com/film/'+this.films[i].href, '_blank').focus();
+      for (let item of nums) {
+        let selecFilm = csv[item]
+        this.films.push({'hidden':true,href:selecFilm.href,'src':'https://a.ltrbxd.com/resized/'+selecFilm.src})
+      }
     }
   },
 
-  resetFilms() {
-    for (let i=0; i<10 ; i++) {
-      this.films[i]['hidden'] = true
-    }
-    setTimeout(() => {this.rollFilms()}, 500);
-  },
-
-  rollFilms() {
-    this.films = []
-    this.prev = false
-
-    const nums = new Set();
-    while (nums.size !== 10) {
-      nums.add(Math.floor(Math.random() * 1400) + 1);
-    }
-
-    for (let item of nums) {
-      let selecFilm = csv[item]
-      this.films.push({'hidden':true,'off':false,'select':false,href:selecFilm.href,'src':'https://a.ltrbxd.com/resized/'+selecFilm.src})
-    }
-  },
-
-  selectFilm() {
-    this.films[this.prev]['select'] = true
-    for (let i=0; i<10 ; i++) {
-      if (i == this.prev) { continue }
-      this.films[i]['hidden'] = false
-      this.films[i]['off'] = true
-    }
-  }
-  
-  },
   beforeMount(){
-    this.rollFilms()
-  },
+    this.getMovies()
+  }
 }
 </script>
-
-<template>
-<body class="m-0 h-full font-graph">
-  <header class="h-16 bg-[#14181c] block px-[15%]">
-    <div class="flex items-center float-left">
-      <img class="h-16" src="./assets/logo.svg">
-      <h1 class="font-bold text-4xl pb-[7px]">Roulette</h1>
-    </div>
-    <div class="float-right h-full flex gap-5">
-    </div>
-    
-  </header>
-  <div class="max-w-5xl mx-auto flex flex-col align-center">
-    <div class="mx-auto grid grid-cols-5 gap-7 p-12">
-      <div v-for="(film,i) in films"
-        class="card hover:scale-105 transition-transform"
-        @click="showFilm(i)">
-        <div class="inner" :class="{ 'flip':!film.hidden }">
-          <div class="back"></div>
-          <img class="front" :class="{ 'grayscale':film.off, 'selected':film.select }" :src="film.src">    
-        </div>
-      </div>
-    </div>
-    <div class="flex mx-auto gap-6">
-      <button class="but bg-lime-600 my-auto" @click="selectFilm()">LOCK</button>
-      <button class="but bg-blue-500 my-auto" @click="resetFilms()">RESET</button>
-    </div>
-  </div>
-  
-  <div class="modal-container">
-    <div class="modal">
-      <h2>helppp</h2>
-      <p>pogggers</p>
-    </div>
-  </div>
-</body>
-</template>

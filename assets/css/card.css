@@ -1,8 +1,9 @@
 .card {
-    width: 150px;
-    height: 225px;
+    width: 100%;
+    aspect-ratio: 460/690;
     background-color: transparent;
     perspective: 1000px;
+    filter: drop-shadow(4px 4px 4px #00000064);
 }
 
 .inner {
@@ -11,6 +12,7 @@
     position: relative;
     transition: transform 1s ease;
     transform-style: preserve-3d;
+    
 }
 
 .front, .back {
@@ -18,7 +20,7 @@
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
-    border-radius: 6px;
+    border-radius: 6%;
     overflow: hidden;
 }
 

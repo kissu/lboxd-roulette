@@ -2,46 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-html,body {
+html,body,div {
     height:100%;
     width:100%;
-}
-
-body {
-    background:#14181c url(./assets/content-bg.0d9a0f0f.png) 0 -1px repeat-x;
+    background: #242532;
     color: #fff;
+    font-family: 'Rubik', serif;
 }
 
-.but {
-    width: 7rem;
-    height: 2.5rem;
-    font-size: 1.2rem;
-    border-radius: 5px;
-    font-weight: 700;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-container {
-    position: absolute;
-    top: 0;
-    left: 0;
+header {
     width: 100%;
-    height: 100%;
-    background-color: #000000a0;
-    display: none;
+    height: 9%;
+    background: #121320;
 }
 
-.modal {
-    margin: 15% auto;
-    width: 50vh;
-    padding: 20px;
-    background-color: #202830;
-    border-radius: 3%;
+.card-list {
+    max-width: 500px;
+    justify-content: space-around;
+    gap: 7%;
+    padding: 7%;
 }
 
-.selected {
-    border: 3px lime solid;
+#__nuxt > div, #__nuxt > header {
+    display:none
 }
