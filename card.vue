@@ -2,7 +2,7 @@
   <div class="card">
     <div class="inner" :class="{ 'flip':!film.hidden }">
       <div class="back" @click="flip()"></div>
-      <img class="front" :class="{ 'grayscale':film.gray }" @click="open()" :src="film.src">    
+      <img class="front" :class="{ 'grayed':film.gray }" @click="open()" :src="film.src">    
     </div>
   </div>
 </template>
@@ -71,5 +71,9 @@ export default {
     background-position:  10px 0, 10px 0, 0 0, 0 0;
     background-size: 20px 20px;
     background-repeat: repeat;
+}
+
+.grayed {
+  filter: grayscale(1)
 }
 </style>

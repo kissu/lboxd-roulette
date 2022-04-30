@@ -2,6 +2,7 @@
 import Card from './card.vue'
 import csv from './assets/filmList.csv'
 import './assets/seedrandom.js'
+import './assets/css/main.css'
 useHead({
   title: 'Wordle',
   link: {rel:'icon', href:'https://letterboxd.com/favicon.ico'},
@@ -9,7 +10,7 @@ useHead({
 </script>
 
 <template>
-<body class="body m-0 h-full font-graph flex flex-col items-center">
+<div class="app m-0 h-full flex flex-col items-center">
 
   <div class="header">
     <div class="header-items">
@@ -29,7 +30,7 @@ useHead({
     </div>
     <div class="button my-6 " :class="{ 'bg-emerald-500':last!=10,'bg-slate-500':last==10 }"  @click="confirm">CONFIRM</div>
   </div>
-  
+
   <div ref="info-box" class="overlay">
     <div class="boxx p-5">
       <div class="flex items-center mb-4">
@@ -53,7 +54,7 @@ useHead({
     </div>
   </div>
 
-</body>
+</div>
 </template>
 
 <script>
@@ -117,12 +118,9 @@ export default { data() { return {
     ]
   },
 
-  beforeMount(){
+  mounted(){
     Math.seedrandom(Date().slice(0,15));
     this.getMovies()
-  },
-
-  mounted(){
     this.open('info-box')
   }
 }

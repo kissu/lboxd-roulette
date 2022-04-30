@@ -7,7 +7,7 @@ html,body,div {
     width:100%;
 }
 
-body {
+.app {
     background: #242532;
     color: #fff;
     font-family: 'Rubik', serif;
@@ -64,7 +64,7 @@ svg {
 }
 
 .card-list {
-    max-width: 500px;
+    max-width: 400px;
     justify-content: space-evenly;
     height: fit-content;
     gap: 1.5em;
@@ -84,9 +84,4 @@ svg {
     width: 40px;
     height: 40px;
     padding: 0.5rem;
-}
-
-
-#__nuxt > div, #__nuxt > header {
-    display:none
 }
