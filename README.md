@@ -5,6 +5,7 @@ to-do list:
 [-] grayscale
 [-] fix layout
 [-] info page
-[-] film page at end
+[ ] film page at end
 [ ] auto confirm when flipping last card
-[ ] random seed
+[ ] new dataset
+[-] random seed

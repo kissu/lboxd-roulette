@@ -1,5 +1,7 @@
 <script setup>
 import Card from './card.vue'
+import csv from './assets/filmList.csv'
+import './assets/seedrandom.js'
 useHead({
   title: 'Wordle',
   link: {rel:'icon', href:'https://letterboxd.com/favicon.ico'},
@@ -7,21 +9,19 @@ useHead({
 </script>
 
 <template>
-<head>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600;700&display=swap" rel="stylesheet"> 
-</head>
+<body class="body m-0 h-full font-graph flex flex-col items-center">
 
-<body class="m-0 h-full font-graph flex flex-col items-center">
-
-  <header class="header">
+  <div class="header">
     <div class="header-items">
-      <div class="flex flex-1 h-fit"><img src="./assets/info.svg" class="icon" @click="open('info-box')"></div>
+      <div class="flex flex-1 h-fit">
+        <img src="./assets/info.svg" class="icon" @click="open('info-box')">
+      </div>
       <h1 class="font-semibold text-3xl" >Wordle</h1>
-      <div class="flex flex-1 h-fit justify-end"><img src="./assets/settings.svg" class="icon" @click="open('settings-box')"></div>
+      <div class="flex flex-1 h-fit justify-end">
+        <img src="./assets/settings.svg" class="icon" @click="open('settings-box')">
+      </div>
     </div>
-  </header>
+  </div>
 
   <div class="game w-full flex flex-col items-center justify-center">
     <div class="card-list grid grid-cols-3 w-full overflow-hidden">
@@ -49,6 +49,7 @@ useHead({
         <img src="./assets/x.svg" class="w-6 h-6" @click="close('settings-box')">
       </div>
       <p class="font-light text-sm mb-2">Settings and new sets of films coming in the future!</p>
+      <div class="button my-6 bg-cyan-600" @click="randomFilms">RANDOM</div>
     </div>
   </div>
 
@@ -56,9 +57,6 @@ useHead({
 </template>
 
 <script>
-import csv from './assets/filmList.csv'
-import './assets/seedrandom.js'
-
 export default { data() { return {
   films: [],
   last: 10,
@@ -76,6 +74,18 @@ export default { data() { return {
         let selecFilm = csv[item]
         this.films.push({'hidden':true,'gray':false,href:selecFilm.href,'src':'https://a.ltrbxd.com/resized/'+selecFilm.src})
       }
+    },
+
+    randomFilms() {
+      Math.seedrandom(Date().slice(0,15),{ entropy: true })
+      for (let film of this.films) {
+        film['hidden'] = true
+      }
+      setTimeout(() => {
+        this.films = []
+        this.last = 10
+        this.getMovies()
+      }, 500);
     },
 
     grayFilm(i) {
@@ -99,9 +109,16 @@ export default { data() { return {
     close(ele) { this.$refs[ele].style.display = 'none' },
   },
 
+  head: {
+    link: [
+      { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+      { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600;700&display=swap" rel="stylesheet' },
+    ]
+  },
+
   beforeMount(){
-    // Math.seedrandom(Date().slice(0,15));
-    Math.seedrandom('Sat Apr 30 2022')
+    Math.seedrandom(Date().slice(0,15));
     this.getMovies()
   },
 
