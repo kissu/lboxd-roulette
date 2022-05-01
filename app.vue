@@ -1,8 +1,8 @@
 <script setup>
-import Card from './card.vue'
-import csv from './assets/filmList.csv'
-import './assets/seedrandom.js'
-import './assets/css/main.css'
+ import Card from './card.vue'
+ import csv from './assets/filmList.csv'
+ import './assets/seedrandom.js'
+
 useHead({
   title: 'Wordle',
   link: {rel:'icon', href:'https://letterboxd.com/favicon.ico'},
@@ -15,11 +15,11 @@ useHead({
   <div class="header">
     <div class="header-items">
       <div class="flex flex-1 h-fit">
-        <img src="./assets/info.svg" class="icon" @click="open('info-box')">
+        <img src="./assets/info.svg" class="icon" @click="open(info-box)">
       </div>
-      <h1 class="font-semibold text-3xl" >Wordle</h1>
+      <h1 class="font-semibold text-3xl">Wordle</h1>
       <div class="flex flex-1 h-fit justify-end">
-        <img src="./assets/settings.svg" class="icon" @click="open('settings-box')">
+        <img src="./assets/settings.svg" class="icon" @click="open(settings-box)">
       </div>
     </div>
   </div>
